@@ -29,6 +29,11 @@ theme: minima
 plugins:
   - jekyll-feed
 
+pages_list:
+  About: '/about'
+  Archive: '/archive'
+  Feed: '/atom.xml'
+
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
 # to override the default setting.
