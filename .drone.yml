@@ -63,10 +63,10 @@ pipeline:
     channel: system_events
     template: >
       {{#success build.status}}
-        [DRONE CI]: *{{ build.status }}* : {{ repo.owner }}/{{ repo.name }}
-        ({{ build.branch }} - {{ build.number }} - {{ commit.link }})
+        [DRONE CI]: *{{ uppercase build.status }}* : {{ repo.owner }}/{{ repo.name }}
+        ({{ build.branch }} - {{ truncate build.sha 8 }} | {{ build.link }})
 
       {{else}}
-        [DRONE CI]: *{{ build.status }}* : {{ repo.owner }}/{{ repo.name }}
-        ({{ build.branch }} - {{ build.number }} - {{ commit.link }})
+        [DRONE CI]: *{{ uppercase build.status }}* : {{ repo.owner }}/{{ repo.name }}
+        ({{ build.branch }} - {{ truncate build.sha 8 }} | {{ build.link }})
       {{/success}}
