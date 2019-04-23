@@ -1,0 +1,57 @@
+pipeline:      
+  jekyll-build:
+    image: jekyll/jekyll:latest
+    commands:
+      - touch Gemfile.lock
+      - chmod a+w Gemfile.lock
+      - chown -R jekyll:jekyll /drone
+      - gem update --system
+      - gem install bundler
+      - bundle install
+      - bundle exec jekyll build 
+
+  transfer-build:
+    image: drillster/drone-rsync
+    hosts: 
+      from_secret: swarm_host
+    key:
+      from_secret: swarm_key
+    user:
+      from_secret: swarm_user
+    source: ./*
+    target: ~/my-weightloss-blog.com
+    recursive: true
+    delete: true
+    when:
+      branch: [master]
+      event: [push]
+      
+  transfer-compose:
+    image: appleboy/drone-scp
+    host: 
+      from_secret: swarm_host
+    username:
+      from_secret: swarm_user
+    key:
+      from_secret: swarm_key
+    target: /root/my-weightloss-blog.com
+    source:
+      - docker-compose.yml
+    when:
+      branch: [master]
+      event: [push]
+     
+  deploy-jekyll-to-swarm:
+    image: appleboy/drone-ssh
+    host: 
+      from_secret: swarm_host
+    username:
+      from_secret: swarm_user
+    key:
+      from_secret: swarm_key
+    port: 22
+    script:
+      - docker stack deploy --prune -c /root/my-weightloss-blog.com/docker-compose.yml apps
+    when:
+      branch: [master]
+      event: [push]

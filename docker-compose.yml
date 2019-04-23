@@ -1,0 +1,34 @@
+version: '3.5'
+
+services:
+  myweightlossblog:
+    image: ruanbekker/jekyll:contrast
+    command: jekyll serve --watch --force_polling --verbose
+    networks:
+      - appnet
+    volumes:
+      - /root/my-weightloss-blog.com:/srv/jekyll
+    deploy:
+      mode: replicated
+      replicas: 1
+      labels:
+        - "traefik.backend.loadbalancer.sticky=false"
+        - "traefik.backend.loadbalancer.swarm=true"
+        - "traefik.backend=myweightlossblog"
+        - "traefik.docker.network=appnet"
+        - "traefik.entrypoints=https"
+        - "traefik.frontend.passHostHeader=true"
+        - "traefik.frontend.rule=Host:www.my-weightloss-blog.com,my-weightloss-blog.com"
+        - "traefik.port=4000"
+      update_config:
+        parallelism: 2
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints:
+          - node.role == manager
+networks:
+  appnet:
+    external: true
+
