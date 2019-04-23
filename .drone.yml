@@ -58,17 +58,16 @@ pipeline:
 
   notify-via-slack:
     image: plugins/slack
-    settings:
-      webhook:
-        from_secret: slack_webhook
-      channel: system_events
-      image_url: https://unsplash.it/256/256/?random
-      icon_url: https://unsplash.it/256/256/?random
-      template: >
-        {{#success build.status}}
-          [DRONE CI]: {{ build.status }}: {{ repo.owner }}/{{ repo.name }}
-          ({{ commit.branch }} - {{ truncate commit.sha 8 }})
-        {{else}}
-          [DRONE CI]: {{ build.status }}: {{ repo.owner }}/{{ repo.name }}
-          ({{ commit.branch }} - {{ truncate commit.sha 8 }})
-        {{/success}}
+    webhook:
+      from_secret: slack_webhook
+    channel: system_events
+    image_url: https://unsplash.it/256/256/?random
+    icon_url: https://unsplash.it/256/256/?random
+    template: >
+      {{#success build.status}}
+        [DRONE CI]: {{ build.status }}: {{ repo.owner }}/{{ repo.name }}
+        ({{ commit.branch }} - {{ truncate commit.sha 8 }})
+      {{else}}
+        [DRONE CI]: {{ build.status }}: {{ repo.owner }}/{{ repo.name }}
+        ({{ commit.branch }} - {{ truncate commit.sha 8 }})
+      {{/success}}
