@@ -63,12 +63,12 @@ pipeline:
     channel: system_events
     template: >
       {{#success build.status}}
-    [DRONE CI]: *{{ uppercase build.status }}* :white_check_mark:
+    [DRONE CI]: *{{ uppercase build.status }}* 
         > github repo: https://{{ repo.owner }}/{{ repo.name }}
         > build link: {{build.link}}
         > build commit: {{build.commit}}
       {{else}}
-        [DRONE CI]: *{{ uppercase build.status }}* :x:
+        [DRONE CI]: *{{ uppercase build.status }}*
         > github repo: https://{{ repo.owner }}/{{ repo.name }}
         > build link: {{build.link}}
         > build commit: {{build.commit}}
