@@ -66,18 +66,10 @@ pipeline:
         [DRONE CI]: *{{ uppercase build.status }}* : {{ repo.owner }}/{{ repo.name }}
         > build link: {{build.link}}
         > build author: {{build.author}}
-        > build ref: {{build.ref}}
-        > build event: {{build.event}}
         > build commit: {{build.commit}}
-        > build branch: {{build.branch}}
-        > build deploy: {{build.deployTo}}
       {{else}}
         [DRONE CI]: *{{ uppercase build.status }}* : {{ repo.owner }}/{{ repo.name }}
         > build link: {{build.link}}
         > build author: {{build.author}}
-        > build ref: {{build.ref}}
-        > build event: {{build.event}}
         > build commit: {{build.commit}}
-        > build branch: {{build.branch}}
-        > build deploy: {{build.deployTo}}
       {{/success}}
