@@ -63,10 +63,10 @@ pipeline:
     channel: system_events
     template: >
       {{#success build.status}}
-        [DRONE CI]: *{{ uppercase build.status }}* : <https://{{ repo.owner }}/{{ repo.name }}|{{ repo.owner }}/{{ repo.name }}>
+        [DRONE CI]: *{{ uppercase build.status }}* : <https://github.com/{{ repo.owner }}/{{ repo.name }}|{{ repo.owner }}/{{ repo.name }}>
         > build link: {{build.link}}
         > build author: {{build.author}}
-        > build commit: {{build.commit}}
+        > build commit: <https://github.com/{{ repo.owner }}/{{ repo.name }}/commit/{{truncate build.commit}}|{{truncate build.commit 8}}>
       {{else}}
         [DRONE CI]: *{{ uppercase build.status }}* : {{ repo.owner }}/{{ repo.name }}
         > build link: {{build.link}}
