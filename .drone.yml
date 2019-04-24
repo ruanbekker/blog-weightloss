@@ -64,12 +64,12 @@ pipeline:
     template: >
       {{#success build.status}}
     [DRONE CI]: *{{ uppercase build.status }}* 
-        > github repo: https://{{ repo.owner }}/{{ repo.name }}
+        > github repo: https:// {{ repo.owner }}/{{ repo.name }}
         > build link: {{build.link}}
         > build commit: {{build.commit}}
       {{else}}
         [DRONE CI]: *{{ uppercase build.status }}*
-        > github repo: https://{{ repo.owner }}/{{ repo.name }}
+        > github repo: https:// {{ repo.owner }}/{{ repo.name }}
         > build link: {{build.link}}
         > build commit: {{build.commit}}
       {{/success}}
